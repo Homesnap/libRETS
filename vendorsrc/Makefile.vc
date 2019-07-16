@@ -35,18 +35,18 @@ RSYNC               = c:\cygwin\bin\rsync -a
 SH                  = c:\cygwin64\bin\bash.exe --login
 TAR                 = c:\cygwin\bin\tar
 TOOLSET             = msvc-10
-VSVERSION           = vs2010
+VSVERSION           = vs2017
 
 !if "$(ARCH)" == "x86"
 ADDRESS_MODEL       = 32
 EXPAT_FLAVOR        = win32
 OPENSSL_FLAVOR      = WIN32
-PERL                = c:\Perl64\bin\perl
+PERL                = c:\Perl64\perl\bin\perl
 !elseif "$(ARCH)" == "x64"
 ADDRESS_MODEL       = 64
 EXPAT_FLAVOR        = x64
 OPENSSL_FLAVOR      = WIN64A
-PERL                = c:\Perl64\bin\perl
+PERL                = c:\Perl64\perl\bin\perl
 !else
 !error "Unknown Architecture: $(ARCH)"
 !endif
@@ -132,9 +132,9 @@ boost: prepare
 
 
 pcre: prepare
-	$(SH) -c "cd /cygdrive/c/libRETS/vendorsrc/pcre/current && ./configure --prefix=/cygdrive/c/libRETS/vendor/vs2010-$(ARCH) \
-		--disable-shared CXX='/cygdrive/c/libRETS/vendorsrc/pcre/current/compile cl.exe' \
-        --enable-rebuild-chartables"
+	$(SH) -c "cd /cygdrive/c/libRETS/vendorsrc/pcre/current && ./configure --prefix=/cygdrive/c/libRETS/vendor/$(VSVERSION)-$(ARCH) \
+		--disable-shared CXX='/cygdrive/c/libRETS/vendorsrc/pcre/current/compile cl.exe' CC='/cygdrive/c/libRETS/vendorsrc/pcre/current/compile cl.exe' \
+                --enable-rebuild-chartables"
 	$(SH) -c "cd /cygdrive/c/libRETS/vendorsrc/pcre/current && make && make install"
 
 
