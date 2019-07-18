@@ -41,7 +41,7 @@ const char * UpdateRequest::VALIDATE_PARAMETER = "Validate";
 const char * UpdateRequest::WARNING_RESPONSE_PARAMETER = "WarningResponse";
 
 UpdateRequest::UpdateRequest(string resourceName, string className)
-    : mDelimiter("\t"), mFlag(UpdateRequest::UPDATE_OK), mUpdateType(""), mAction("")
+    : mDelimiter("\t"), mFlag(UpdateRequest::UPDATE_OK), mUpdateType(""), mUpdateAction("")
 {
     SetQueryParameter(CLASS_PARAMETER, className);
     SetQueryParameter(RESOURCE_PARAMETER, resourceName);
@@ -49,7 +49,7 @@ UpdateRequest::UpdateRequest(string resourceName, string className)
     SetDelimiter(mDelimiter);
     SetMethod(POST);
     SetUpdateType(mUpdateType);
-    SetUpdateAction(mAction);
+    SetUpdateAction(mUpdateAction);
     SetValidateFlag(mFlag);
 }
 
@@ -151,13 +151,13 @@ void UpdateRequest::SetUpdateType(string updateType)
 
 const string UpdateRequest::GetUpdateAction()
 {
-    return mAction;
+    return mUpdateAction;
 }
 
-void UpdateRequest::SetUpdateAction(string action)
+void UpdateRequest::SetUpdateAction(string updateAction)
 {
-    mAction = action;
-    SetQueryParameter(UPDATE_ACTION_PARAMETER, mAction);
+    mUpdateAction = updateAction;
+    SetQueryParameter(UPDATE_ACTION_PARAMETER, mUpdateAction);
 }
 
 const int UpdateRequest::GetValidateFlag()

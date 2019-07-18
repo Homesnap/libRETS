@@ -759,6 +759,10 @@ class UpdateRequest
     
     void SetUpdateType(std::string updateType);
     
+    std::string GetUpdateAction();
+    
+    void SetUpdateAction(std::string updateAction);
+    
     int GetValidateFlag();
     
     void SetValidateFlag(int flag);

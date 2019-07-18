@@ -213,7 +213,7 @@ class UpdateRequest : public RetsHttpRequest
     StringMap       mFields;
     int             mFlag;
     std::string     mUpdateType;
-    std::string     mAction;
+    std::string     mUpdateAction;
     StringMap       mWarnings;
 };
 
