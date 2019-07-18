@@ -156,6 +156,24 @@ MSVCR_DLL="C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Mic
 
 VC_VERSION = -vc140
 WINLIBS = ws2_32.lib winmm.lib wldap32.lib user32.lib gdi32.lib advapi32.lib
+
+!else if "$(VS_VERSION)" == "vs2017"
+
+CFLAGS_STD = /nologo $(RUNTIME_FLAGS) $(OPTIMIZE_FLAG) /Zi \
+	$(RTC_FLAG) /I. \
+	/W3 /EHsc /GR /c
+
+!if "$(TARGET_CPU)" == "x64"
+MSVCP_DLL="C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Redist\MSVC\14.16.27012\x64\Microsoft.VC141.CRT\msvcp140.dll"
+MSVCR_DLL="C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Redist\MSVC\14.16.27012\x64\Microsoft.VC141.CRT\vcruntime140.dll"
+!else
+MSVCP_DLL="C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Redist\MSVC\14.16.27012\x86\Microsoft.VC141.CRT\msvcp140.dll"
+MSVCR_DLL="C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Redist\MSVC\14.16.27012\x86\Microsoft.VC141.CRT\vcruntime140.dll"
+!endif
+
+VC_VERSION = -vc141
+WINLIBS = ws2_32.lib winmm.lib wldap32.lib user32.lib gdi32.lib advapi32.lib crypt32.lib Normaliz.lib
+
 !endif
 
 CSC = csc.exe /nologo
@@ -203,7 +221,7 @@ LIBRETS_LIB_NAME = $(LIB_PREFIX)librets-$(VS_VERSION)$(LIBRETS_TS)$(LIBRETS_RUNT
 BOOST_PATH = $(BASE_PATH)/boost_$(BOOST_VERSION)/boost
 BOOST_CFLAGS = /I "$(BOOST_PATH)" /DBOOST_DISABLE_ASSERTS
 BOOST_LDFLAGS = "/LIBPATH:$(BOOST_PATH)/stage/lib"
-!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015"
+!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015" || "$(VS_VERSION)" == "vs2017"
 BOOST_CFLAGS = /I "$(BASE_PATH)/include/boost-$(BOOST_VERSION)" /DBOOST_DISABLE_ASSERTS
 BOOST_LDFLAGS = "/LIBPATH:$(BASE_PATH)/lib"
 !endif
@@ -216,7 +234,7 @@ OPENSSL_PATH = $(BASE_PATH)/openssl
 
 #OPENSSL_LDFLAGS = "/LIBPATH:$(OPENSSL_PATH)/out32" ssleay32.lib libeay32.lib gdi32.lib advapi32.lib user32.lib
 OPENSSL_LDFLAGS = "/LIBPATH:$(OPENSSL_PATH)/out32" ssleay32.lib libeay32.lib 
-!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015"
+!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015" || "$(VS_VERSION)" == "vs2017"
 OPENSSL_LDFLAGS = "/LIBPATH:$(BASE_PATH)/lib" libssl.lib libcrypto.lib 
 !endif
 
@@ -245,7 +263,7 @@ CURL_LIB = libcurl$(CURL_RUNTIME)$(CURL_DEBUG_RUNTIME).lib
 CURL_CFLAGS = /I "$(CURL_PATH)/include" $(CURL_STATIC)
 CURL_LDFLAGS = "/LIBPATH:$(CURL_PATH)/lib" $(CURL_LIB)
 
-!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015"
+!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015" || "$(VS_VERSION)" == "vs2017"
 CURL_CFLAGS = /I "$(BASE_PATH)/include" $(CURL_STATIC)
 CURL_LDFLAGS = "/LIBPATH:$(BASE_PATH)/lib" $(CURL_LIB)
 !endif
@@ -299,7 +317,7 @@ EXPAT_LDFLAGS = "/LIBPATH:$(BASE_PATH)/lib" \
 # ANTLR Configuration
 
 ANTLR_PATH = $(BASE_PATH)/antlr/install
-!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015"
+!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015" || "$(VS_VERSION)" == "vs2017"
 ANTLR_PATH = $(BASE_PATH)
 !endif
 
@@ -315,7 +333,7 @@ ANTLR_DEBUG_RUNTIME =
 ANTLR_DEBUG_RUNTIME = d
 !endif
 
-ANTLR = java -classpath $(ANTLR_PATH)/lib/antlr.jar antlr.Tool
+ANTLR = java -classpath C:\libRETS\vendorsrc\antlr\current\antlr.jar antlr.Tool
 ANTLR_CFLAGS = /I "$(ANTLR_PATH)/include"
 ANTLR_LDFLAGS = "/LIBPATH:$(ANTLR_PATH)/lib" \
 	antlr$(ANTLR_RUNTIME)$(ANTLR_DEBUG_RUNTIME).lib
@@ -329,7 +347,7 @@ CPPUNIT_LIB = cppunit.lib
 CPPUNIT_CFLAGS = /I "$(CPPUNIT_PATH)/include"
 CPPUNIT_LDFLAGS = "/LIBPATH:$(CPPUNIT_PATH)/lib" $(CPPUNIT_LIB)
 
-!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015"
+!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015" || "$(VS_VERSION)" == "vs2017"
 CPPUNIT_CFLAGS = /I "$(BASE_PATH)/include"
 CPPUNIT_LDFLAGS = "/LIBPATH:$(BASE_PATH)/lib" $(CPPUNIT_LIB)
 !endif
@@ -341,7 +359,7 @@ CPPUNIT_LDFLAGS = "/LIBPATH:$(BASE_PATH)/lib" $(CPPUNIT_LIB)
 #!if "$(SWIG_PATH)" == ""
 #SWIG_PATH = $(BASE_PATH)\swig
 #!endif
-#!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015"
+#!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015" || "$(VS_VERSION)" == "vs2017"
 #SWIG_PATH = $(BASE_PATH)\bin
 #!endif
 !if "$(SWIG)" == ""
@@ -352,7 +370,7 @@ SWIG = $(BASE_PATH)\bin\swig.exe
 #
 # PHP Configuration
 
-!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015"
+!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015" || "$(VS_VERSION)" == "vs2017"
 PHP_PATH = $(BASE_PATH)/include/php
 !if "$(TARGET_CPU)" == "x86"
 PHP_TIME_T=/D_USE_32BIT_TIME_T
@@ -387,7 +405,7 @@ PHP_LIBS = $(PHPWIN_PATH)/dev/php5ts.lib
 #
 # Perl Configuration
 
-!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015"
+!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2015" || "$(VS_VERSION)" == "vs2017"
 
 PERL_PATH = $(BASE_PATH)/perl
 PERL_CFLAGS = /DWIN32 /D_CONSOLE /DNO_STRICT /I../../librets/include $(CFLAGS_STD) \

@@ -40,7 +40,7 @@ RUBY_DIST =
 RUBY_DIST = _dist_ruby
 !endif
 PERL_DIST =
-!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010"
+!if "$(VS_VERSION)" == "vs2008" || "$(VS_VERSION)" == "vs2010" || "$(VS_VERSION)" == "vs2017"
 PERL_DIST = _dist-perl
 !endif
 RSYNC = rsync -a --exclude-from project/build/dist-win-exclude
@@ -75,7 +75,7 @@ docs: prepare
 
 swig:
 	cd project\swig
-	$(NMAKE) /f Makefile.vc
+	$(NMAKE) /f Makefile.vc csharp_
 	cd ..\..
 
 lib-all-variants: lib-debug-dynamic lib-debug-static lib-release-dynamic lib-release-static lib-release-dynamic-ts lib-release-static-ts
