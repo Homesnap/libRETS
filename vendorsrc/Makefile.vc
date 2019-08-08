@@ -115,10 +115,10 @@ expat-install::
 		cd $(BASEDIR)\expat\current\expat
 		$(CP) lib\expat.h $(INSTALL_DIR_WIN)\include
 		$(CP) lib\expat_external.h $(INSTALL_DIR_WIN)\include
-		$(CP) $(EXPAT_FLAVOR)\bin\Release\libexpat.lib $(INSTALL_DIR_WIN)\lib\libexpat.lib
-		$(CP) $(EXPAT_FLAVOR)\bin\Release\libexpatMT.lib $(INSTALL_DIR_WIN)\lib\libexpatMT.lib
-		$(CP) $(EXPAT_FLAVOR)\bin\Debug\libexpat.lib $(INSTALL_DIR_WIN)\lib\libexpatd.lib
-		$(CP) $(EXPAT_FLAVOR)\bin\Debug\libexpatMT.lib $(INSTALL_DIR_WIN)\lib\libexpatMTd.lib
+		$(CP) win32\bin\Release\libexpat.lib $(INSTALL_DIR_WIN)\lib\libexpat.lib
+		$(CP) win32\bin\Release\libexpatMT.lib $(INSTALL_DIR_WIN)\lib\libexpatMT.lib
+		$(CP) win32\bin\Debug\libexpat.lib $(INSTALL_DIR_WIN)\lib\libexpatd.lib
+		$(CP) win32\bin\Debug\libexpatMT.lib $(INSTALL_DIR_WIN)\lib\libexpatMTd.lib
 
 boost: prepare
         cd $(BASEDIR)\boost\current
@@ -241,7 +241,7 @@ clean-antlr:
 
 clean-expat:
         cd $(BASEDIR)\expat\current\expat
-        $(MSBUILD) expat.sln /Clean 
+        $(MSBUILD) expat.sln -target:Clean
         if exist build.log del build.log
         cd $(BASEDIR)\expat\current\expat\$(EXPAT_FLAVOR)
         if exist bin rmdir /S /Q bin
